@@ -34,6 +34,16 @@ with open("./courses.json", "r") as f:
     for course in courseList:
         print(i)
         i +=1
-        cur.execute(f"INSERT INTO courses VALUES (?,?,?,?,?,?,?)", (course["coid"] , "'" + str(course["code"]) + "'" , "'" + str(course["title"]) + "'", "'" + str(course["description"]) + "'", course["hours"], "'" + str(course["restrictions"]) + "'", "'" + str(json.dump(course["prerequisits"], io)) + "'"))
-
+        
+        cur.execute("INSERT INTO courses VALUES (?,?,?,?,?,?,?)", 
+            (course["coid"] , 
+            "'" + str(course["code"]) + "'" , 
+            "'" + str(course["title"]) + "'", 
+            "'" + str(course["description"]) + "'", 
+            course["hours"], 
+            "'" + str(course["restrictions"]) + "'", 
+            "'" + str(json.dump(course["prerequisits"], io)) + "'"
+            ) 
+        )
+        conn.commit()
 conn.close()
